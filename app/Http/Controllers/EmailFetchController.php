@@ -54,20 +54,25 @@ class EmailFetchController extends Controller
         // dd($overview);
         $query = $folder[0]->messages();
         $message = $query->getMessage($id = 3);
+        $message_msgn = $query->getMessageByMsgn($msgn = 8);
+        $message_all = $query->all()->get();
+        $flags = $message->getFlags();
+        $from = $message->getFrom();
 
-        // dd($overview);
-
-        Mail::raw('Text to e-mail', function ($message) use ($request) {
-            $references = $request->references . '<' . 3 . '>';
-            $message->getHeaders()->addTextHeader('In-Reply-To', 3);
-            $message->getHeaders()->addTextHeader('References', $references);
-            $message->from("info@equatorial-property.com");
-            $message->sender($message->getFrom());
-            $message->to("gusadetaruna04@gmail.com");
-            $message->replyTo($message->getFrom());
-            $message->subject("Testing dari hosting");
-            $message->setBody("Ini reply dari hosting");
-        });
+        dd($flags);
+        // $test = $message->references[0];
+        // dd($test);
+        // Mail::raw('Testing reply to e-mail', function ($message) use ($request) {
+        //     $r = "<58f21f94fc655575a0f1d5ff753700e9@127.0.0.1>" . '<' . '8' . '>';
+        //     $message->getHeaders()->addTextHeader('In-Reply-To', '8');
+        //     $message->getHeaders()->addTextHeader('References', $r);
+        //     $message->from("info@equatorial-property.com", "Equatorial Property");
+        //     $message->sender($message->getFrom());
+        //     $message->to("dummy.gusade@gmail.com");
+        //     $message->replyTo($message->getFrom());
+        //     $message->subject("Testing dari hosting");
+        //     $message->setBody("Ini reply dari hosting");
+        // });
 
         //Loop through every Mailbox
         /** @var \Webklex\PHPIMAP\Folder $folder */
